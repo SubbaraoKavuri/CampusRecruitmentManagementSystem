@@ -1,0 +1,58 @@
+# Spring Boot configuration for Campus Recruitment Management System
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:h2:file:./data/campusrecruit;MODE=MySQL;AUTO_SERVER=TRUE}
+    username: ${DATABASE_USERNAME:sa}
+    password: ${DATABASE_PASSWORD:}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  h2:
+    console:
+      enabled: false
+
+  # Async email notifications (configure SMTP to actually send emails)
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+server:
+  port: ${PORT:8080}
+
+app:
+  email:
+    smtp-enabled: ${EMAIL_SMTP_ENABLED:false}
+    development-code-enabled: ${EMAIL_DEV_CODE_ENABLED:true}
+    from: ${MAIL_FROM:career-services@campusrecruit.local}
+    support-address: ${SUPPORT_EMAIL:career-services@campusrecruit.local}
+    resend-cooldown-seconds: 60
+  admin:
+    email: ${ADMIN_EMAIL:admin@campusrecruit.local}
+    password: ${ADMIN_PASSWORD:CampusAdmin-Local-2026!}
+    name: ${ADMIN_NAME:College Admin}
+
+# JWT configuration
+jwt:
+  secret: ${JWT_SECRET:local-development-only-campus-secret-change-before-deploying}
+  expiration: ${JWT_EXPIRATION_MS:86400000}
+
+# Async thread pool
+async:
+  core-pool-size: 2
+  max-pool-size: 5
+  queue-capacity: 100
