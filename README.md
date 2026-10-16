@@ -49,6 +49,16 @@ Local defaults are for development. For a deployed environment, configure:
 
 Disable development codes and replace all local admin/JWT credentials before enabling real accounts. The support address shown in the local UI is a development placeholder; set `SUPPORT_EMAIL` and `MAIL_FROM` to college-managed addresses for deployment.
 
+### Container deployment
+
+The repository includes a Java 17 multi-stage `Dockerfile`. Build with `docker build -t campusly .` and run with the production profile enabled:
+
+```powershell
+docker run --rm -p 8080:8080 --env-file .env campusly
+```
+
+Set `SPRING_PROFILES_ACTIVE=production` in the host. The production profile requires `DATABASE_URL`, `DATABASE_USERNAME`, `DATABASE_PASSWORD`, `JWT_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `MAIL_FROM`, and `SUPPORT_EMAIL`; it disables development OTP display. For PostgreSQL, use a JDBC URL such as `jdbc:postgresql://HOST:5432/DATABASE`. Store these values in the hosting provider's secret/environment settings, never in the repository. Configure `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, and `MAIL_PASSWORD` for the college SMTP service and set `EMAIL_SMTP_ENABLED=true`.
+
 ## API
 
 The UI uses the protected REST API under `/api`. OpenAPI docs are available at `/swagger-ui/index.html` while the server is running.

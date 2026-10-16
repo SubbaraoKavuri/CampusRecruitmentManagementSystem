@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+
+app:
+  email:
+    smtp-enabled: ${EMAIL_SMTP_ENABLED:true}
+    development-code-enabled: ${EMAIL_DEV_CODE_ENABLED:false}
+    from: ${MAIL_FROM}
+    support-address: ${SUPPORT_EMAIL}
+  admin:
+    email: ${ADMIN_EMAIL}
+    password: ${ADMIN_PASSWORD}
+    name: ${ADMIN_NAME:College Admin}
+
+jwt:
+  secret: ${JWT_SECRET}

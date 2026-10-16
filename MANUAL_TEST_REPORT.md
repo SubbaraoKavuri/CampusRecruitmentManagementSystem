@@ -40,3 +40,15 @@ The application is running at `http://localhost:8081/`. Local browser interactio
 ## Production configuration
 
 Local development intentionally displays OTP codes in the UI and uses a local seeded admin account. Before real use, configure SMTP, a private support inbox, database credentials, a strong JWT secret, and deployment-specific admin credentials; set `EMAIL_DEV_CODE_ENABLED=false`.
+
+## Deployment preparation retest
+
+Date: 16 October 2026
+
+- Maven `test` — passed; the repository currently contains no automated test classes.
+- Maven `package` — passed on the updated source.
+- Homepage served HTTP 200; `/app.css` and `/app.js` served HTTP 200.
+- Unauthenticated `/api/auth/me` and `/api/jobs` — HTTP 401 as expected. A prior run exposed `/api/auth/me` returning 500; the route is now explicitly authenticated.
+- Admin password + OTP login, admin dashboard, and job creation — passed.
+- Student OTP registration, application submission, admin status update, and student status tracking — passed.
+- Docker image could not be built locally because Docker Desktop's Linux engine is not running.
